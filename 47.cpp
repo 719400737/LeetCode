@@ -43,6 +43,7 @@ int main(){
     Solution s;
     vector<vector<int>> res;
     res=s.permuteUnique(vec);
+    cout<<res.size()<<endl;
     for(auto i:res){
         for(auto j:i)
             cout<<j<<" ";
