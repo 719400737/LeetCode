@@ -4,7 +4,8 @@
         "*.tcc": "cpp",
         "forward_list": "cpp",
         "list": "cpp",
-        "regex": "cpp"
+        "regex": "cpp",
+        "vector": "cpp"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }
