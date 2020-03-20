@@ -8,8 +8,8 @@ public:
     void rotate(vector<vector<int>>& matrix) {
         int s=matrix.size();
         int tmp;
-        for(int i=0;i<s-1;i++){
-            for(int j=i;j<s-1;j++){
+        for(int i=0;i<s-i;i++){
+            for(int j=i;j<s-1-i;j++){
                 tmp=matrix[s-1-j][i];
                 matrix[s-1-j][i]=matrix[s-1-i][s-1-j];
                 matrix[s-1-i][s-1-j]=matrix[j][s-1-i];
