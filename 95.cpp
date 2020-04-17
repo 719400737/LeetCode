@@ -34,7 +34,7 @@ public:
         vector<TreeNode*> res;
         if(start<end)
             res.push_back(NULL);
-        for(int i=star;i<=end;i++){
+        for(int i=start;i<=end;i++){
             //i为根，
             vector<TreeNode*> left=createzishu(start,i-1);
             vector<TreeNode*> right=createzishu(i+1,end);
