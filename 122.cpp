@@ -1,5 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std;
+
 class Solution {
 //vector<vector<vector<int>>> dp;
 public:
@@ -17,13 +18,12 @@ public:
                }
                else{
                     dp[i][0]=max(dp[i-1][0],dp[i-1][1]+prices[i]);
-                    dp[i][1]=max(dp[i-1][1],-prices[i]);
+                    dp[i][1]=max(dp[i-1][1],dp[i-1][0]-prices[i]);
                }
            }
         return dp[prices.size()-1][0];
     }
 };
-
 int main(){
     Solution s;
     vector<int> vec={7,1,5,3,6,4};
