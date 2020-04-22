@@ -1,40 +1,43 @@
-#include<iostream>
-#include<string>
-#include<algorithm>
+#include<bits/stdc++.h>
 using namespace std;
-//遍历1遍，每次以遍历元素为中心，找两边元素是否相等，若不相等，则遍历后一个元素，若相等则继续遍历元素两边，获得最长的回文子串
-int main(){
-    string s("cbaabaa");
-    int len=s.size();
-    int cur;
-    int r=0;
-    //string res(begin(s)+1,begin(s)+3);
-    string res;
-    
-    for(cur=0;cur<len;cur++){
-        int qian=cur;
-        int hou=cur;
-        while(qian>=0&&hou<len&&s[qian]==s[hou]){
-            qian--;
-            hou++;
+
+class Solution {
+public:
+    string longestPalindrome(string s) {
+        int N=s.size();
+        if(N==0)
+            return s;
+        int ma=0;
+        int a=0;int b=0;
+        vector<vector<int>> dp(N,vector<int>(N,0));
+        for(int i=N-1;i>=0;i--){
+            for(int j=N-1;j>=i;j--){
+                if(i==j)
+                    dp[i][j]=1;
+                else if((i==j-1) && (s[i]==s[j]))
+                    dp[i][j]=1;
+                else{
+                    if(s[i]==s[j])
+                        dp[i][j]=dp[i+1][j-1];
+                }
+                if(dp[i][j]==1){
+                    if(j-i>ma){
+                        ma=j-i;
+                        a=i;
+                        b=j;
+                    }
+                }
+            }
         }
-        if((hou-qian-1)>r){
-            r=hou-qian-1;
-            res=s.substr(qian+1,r);
-        }
-   
-    
-        qian=cur;
-        hou=cur+1;
-        while(qian>=0&&hou<len&&s[qian]==s[hou]){
-            qian--;
-            hou++;
-        }
-        if((hou-qian-1)>r){
-            r=hou-qian-1;
-            res=s.substr(qian+1,r);
-        }
+        string s1=s.substr(a,ma+1);
+        return s1;
     }
-    cout<<res;
+};
+int main(){
+    Solution s;
+    string s1="cbbd";
+    s1=s.longestPalindrome(s1);
+    cout<<s1<<endl;
+
     return 0;
 }

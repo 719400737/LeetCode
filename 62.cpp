@@ -1,32 +1,26 @@
-#include<iostream>
-#include<vector>
-#include<string>
-#include<algorithm>
-
+#include<bits/stdc++.h>
 using namespace std;
+
 class Solution {
 public:
     int uniquePaths(int m, int n) {
-        int a[100][100];
-        for(int i=0;i<n;i++){
-            for(int j=0;j<m;j++){
-                if(i==0||j==0){
-                    a[i][j]=1;
+        vector<vector<int>> dp(m,vector<int>(n,1));
+        for(int i=m-1;i>=0;i--){
+            for(int j=n-1;j>=0;j--){
+                if(j==n-1 || i==m-1)
+                    dp[i][j]=1;
+                else{
+                    dp[i][j]=dp[i][j+1]+dp[i+1][j];
                 }
-                else
-                {
-                    a[i][j]=a[i-1][j]+a[i][j-1];
-                }
-                
             }
         }
-        return a[n-1][m-1];
+        return dp[0][0];
     }
-};
 
+};
 int main(){
-    Solution s;
-    int n=s.uniquePaths(7,3);
-    cout<<n<<endl;
+
+
+
     return 0;
 }
