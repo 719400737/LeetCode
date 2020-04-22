@@ -1,36 +1,31 @@
-#include<iostream>
-#include<vector>
+#include<bits/stdc++.h>
 using namespace std;
-class Solution {
-private:
-vector<vector<int>> res;
-vector<int> path;
-vector<int> nums;
-vector<int> num_tag;
 
+class Solution {
+    vector<vector<int>> res;
+    vector<int> path;
+    vector<int> vec;
 public:
-    void DFS(int begin){
-        if(path.size()==nums.size()){
+    void DFS(int start,int n,vector<int>& tag){
+        if(path.size()==n){
             res.push_back(path);
             return;
         }
-        for(int i=begin;i<nums.size();i++){
-            if(num_tag[i]==1)
+        for(int i=start;i<n;i++){
+            if(tag[i]==1)
                 continue;
-            path.push_back(nums[i]);
-            num_tag[i]=1;
-            DFS(0);
+            path.push_back(vec[i]);
+            tag[i]=1;
+            DFS(start,n,tag);
             path.pop_back();
-            num_tag[i]=0;
+            tag[i]=0;
         }
-        return;
     }
     vector<vector<int>> permute(vector<int>& nums) {
-        this->nums=nums;
-        for(int i=0;i<nums.size();i++){
-            num_tag.push_back(0);
-        }
-        DFS(0);
+        vec=nums;
+        int n=vec.size();
+        vector<int> tag(n,0);
+        DFS(0,n,tag);
         return res;
     }
 };

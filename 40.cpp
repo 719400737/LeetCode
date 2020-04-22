@@ -1,34 +1,35 @@
-#include<iostream>
-#include<vector>
-#include<algorithm>
+#include<bits/stdc++.h>
 using namespace std;
-
-
 class Solution {
-private:
-    vector<int> path;
     vector<vector<int>> res;
-    vector<int> candidates;
+    vector<int> path;
+    vector<int> vec;
+    int sum=0;
+    bool b=false;
 public:
-    void dfs(int start,int target){
-        if(target==0){
+    void DFS(int start,int target){
+        if(sum==target){
             res.push_back(path);
             return;
         }
-        for(int i=start;i<candidates.size()&&target-candidates[i]>=0;i++){
-            if(i>start&&candidates[i]==candidates[i-1])
+        for(int i=start;i<vec.size();i++){
+            if(i>0 && vec[i]==vec[i-1] & b)
                 continue;
-            path.push_back(candidates[i]);
-            dfs(i,target-candidates[i]);
+            if(sum+vec[i]>target)
+                break;
+            path.push_back(vec[i]);
+            b=false;
+            sum+=vec[i];
+            DFS(i+1,target);
             path.pop_back();
+            b=true;
+            sum-=vec[i];
         }
-        return;
     }
-    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
-        
-        sort(candidates.begin(),candidates.end());
-        this->candidates=candidates;
-        dfs(0,target);
+    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
+        vec=candidates;
+        sort(vec.begin(),vec.end());
+        DFS(0,target);
         return res;
     }
 };
