@@ -1,53 +1,38 @@
-#include<iostream>
-#include<vector>
-#include<string>
-#include<algorithm>
-
+#include<bits/stdc++.h>
 using namespace std;
+
 class Solution {
-private:
     vector<vector<int>> res;
     vector<int> path;
-    vector<int> tag;
     vector<int> nums;
 public:
-    void DFS(int start){
-        for(int i=start;i<nums.size();i++){
-            if(tag[i]==1)//需要去掉一些不满足的情况
+    void DFS(int start,vector<int>& tag){//1-n个数中，k个数的组合
+
+        res.push_back(path);       
+        for(int i=start;i<tag.size();i++){
+            if(tag[i])
                 continue;
             path.push_back(nums[i]);
-            res.push_back(path);
-            tag[i]=1;            
-            DFS(i);
+            tag[i]=1;
+            DFS(i,tag);
             path.pop_back();
             tag[i]=0;
         }
-        return;
     }
     vector<vector<int>> subsets(vector<int>& nums) {
-        
-        sort(nums.begin(),nums.end());
+        int n=nums.size();
+        vector<int> tag(n,0);
         this->nums=nums;
-        for(int i=0;i<nums.size();i++){
-            tag.push_back(0);
-        }
-        DFS(0);
-        vector<int> a;
-        res.push_back(a);
+        DFS(0,tag);
         return res;
     }
 };
 
 int main(){
-    Solution s;
     vector<int> vec={1,2,3};
-    vector<vector<int>> res;
-    res=s.subsets(vec);
-    for(auto i:res){
-        for(auto j:i){
-            cout<<j<<" ";
-        }
-        cout<<endl;
-    }
+    Solution s;
+    s.subsets(vec);
+
+
     return 0;
 }
