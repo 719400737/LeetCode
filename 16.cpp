@@ -41,24 +41,22 @@ public:
 
 class Solution {//双指针
 public:
-    vector<vector<int>> threeSum(vector<int>& nums) {
-        vector<vector<int>> res;
+    int threeSumClosest(vector<int>& nums, int target) {
+        int tag=1;
+        int res=INT_MAX;
         sort(nums.begin(),nums.end());
         for(int i=0;i<nums.size();i++){
             if(i>0 && nums[i]==nums[i-1])
                 continue;
-            int sum2=-nums[i];
+            int sum2=target-nums[i];
             int first=i+1;
             int second=nums.size()-1;
             while(first<second){
-                if(nums[first]+nums[second]==sum2){
-                    res.push_back({nums[i],nums[first],nums[second]});
-                    //cout<<nums[i]<<" "<<nums[first]<<" "<<nums[second]<<endl;
-                    first++;
-                    while(nums[first]==nums[first-1] && first<second)
-                        first++;
+                if(abs(sum2-nums[first]-nums[second])<res){
+                    tag=sum2-nums[first]-nums[second]>0?1:0;
+                    res=abs(sum2-nums[first]-nums[second]);
                 }
-                else if(nums[first]+nums[second]<sum2){
+                if(nums[first]+nums[second]<sum2){
                     first++;
                 }
                 else{
@@ -67,14 +65,19 @@ public:
                 }
             }
         }
+        if(tag)
+            res=target-res;
+        else
+            res=target+res;
+        cout<<res<<endl;
         return res;
     }
 };
 
 int main(){
     Solution s;
-    vector<int> vec={-1,0,1,2,-1,-4};
-    s.threeSum(vec);
+    vector<int> vec={-1,2,1,-4};
+    s.threeSumClosest(vec,1);
 
     return 0;
 }

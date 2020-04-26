@@ -1,35 +1,29 @@
-#include<iostream>
-#include<string>
-#include<map>
-#include<vector>
+#include<bits/stdc++.h>
 using namespace std;
 
-int lengthOfLongestSubstring(string s) {
-        map<int,int>  m;
-        int N=s.size();
-        if(N==0)
-            return N;
-        vector<int> a;//存储第i个的最长长度          
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        int left=0,right=0;
+        unordered_map<char,int> m;
         int res=0;
-        for(int i=0;i<N;i++){
-            char c=s[i];             
-            if(!i){
-              a.push_back(1);
-              m[c-'a']=i+1;
-            }     
-            else{
-                int tmp=min(i+1-m[c-'a'],a[i-1]+1);
-                a.push_back(tmp);
-                m[c-'a']=i+1;
+        while(right<s.size()){
+            m[s[right]]++;
+            while(m[s[right]]>1){
+                m[s[left]]--;
+                left++;
             }
-                
-         res=max(res,a[i]);
+            res=max(res,right-left+1);
+            right++;
         }
-      return res;
+        return res;
     }
-int main(){
+};
 
-    string s="abcabcbb";
-    cout<< lengthOfLongestSubstring(s);
+int main(){
+    string s="dvdf";
+    Solution s1;
+    int res=s1.lengthOfLongestSubstring(s);
+    cout<<res<<endl;
     return 0;
 }
