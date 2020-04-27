@@ -1,7 +1,7 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-class Solution {
+class Solution {  //子字符串问题，一般是滑动窗口解法
 public:
     int lengthOfLongestSubstring(string s) {
         int left=0,right=0;

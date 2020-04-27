@@ -39,7 +39,7 @@ public:
 };
 */
 
-class Solution {//双指针
+class Solution {//双指针 数组问题一般是首尾双指针
 public:
     vector<vector<int>> threeSum(vector<int>& nums) {
         vector<vector<int>> res;
