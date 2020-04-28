@@ -1,1 +1,0 @@
-cp * ~/桌面/LeetCode
