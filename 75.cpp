@@ -1,41 +1,35 @@
-#include<iostream>
-#include<vector>
-#include<string>
-#include<algorithm>
-
+#include<bits/stdc++.h>
 using namespace std;
+
 class Solution {
 public:
-    void swap(int &a,int &b){
-        int tmp;
-        tmp=a;
-        a=b;
-        b=tmp;
-    }
     void sortColors(vector<int>& nums) {
-        int head=0;
-        int tail=nums.size()-1;
-        int cur=head;
-        while(cur<=tail){
-            if(nums[cur]==0){
-                swap(nums[cur++],nums[head++]);
+        int left=0;
+        int right=nums.size()-1;
+        int i=0;
+        while(i<=right){
+            if(nums[i]==0){
+                int temp=nums[left];
+                nums[left]=nums[i];
+                nums[i]=temp;
+                left++;
+                i++;
             }
-            else if(nums[cur]==2){
-                swap(nums[cur],nums[tail--]);
+            else if(nums[i]==2){
+                int temp=nums[right];
+                nums[right]=nums[i];
+                nums[i]=temp;
+                right--;
             }
             else{
-                cur++;
+                i++;
             }
         }
     }
 };
 
 int main(){
-    Solution s;
-    vector<int> vec={2,0,2,1,1,0};
-    s.sortColors(vec);
-    for(auto i:vec)
-        cout<<i<<" ";
-    cout<<endl;
+
+
     return 0;
 }

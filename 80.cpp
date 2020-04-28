@@ -1,33 +1,30 @@
-#include<iostream>
-#include<vector>
-#include<string>
-#include<algorithm>
-
+#include<bits/stdc++.h>
 using namespace std;
+
 class Solution {
 public:
     int removeDuplicates(vector<int>& nums) {
-        // map<int,int> m;//使用map
-        // int cur=0;
-        // for(int i=0;i<nums.size();i++){
-        //     if(m[nums[i]]>1)
-        //         continue;
-        //     m[nums[i]]++;
-        //     nums[cur++]=nums[i];
-        // }
-        // return cur;
-        int cur=0;
-        for(int i=0;i<nums.size();i++){
-            if(i>0&&i<nums.size()-1&&nums[i]==nums[i-1]&&nums[i]==nums[i+1])
+        int count=1;
+        int first=0,second=0;
+        while(first<nums.size()){
+            if(count>1 && nums[first]==nums[first-1]){
+                first++;
                 continue;
-            nums[cur++]=nums[i];
+            }
+            if(first>0 && nums[first]==nums[first-1]){
+                nums[second++]=nums[first];
+                count++;
+                continue;
+            }
+            count=1;
+            nums[second++]=nums[first++];
         }
-        return cur;
+        return second;
     }
 };
 
 int main(){
-    Solution s;
+
 
     return 0;
 }
