@@ -6,7 +6,7 @@ struct ListNode {
     ListNode *next;
     ListNode(int x) : val(x), next(NULL) {}
 };
- ListNode* Creat(int a[],int N){ 
+ListNode* Creat(int a[],int N){ 
 	ListNode *tail;
 	ListNode *prehead=new ListNode(-1);
 	ListNode *head=prehead;
