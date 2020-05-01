@@ -1,42 +1,41 @@
-#include<iostream>
-#include<vector>
-#include<algorithm>
+#include<bits/stdc++.h>
 using namespace std;
-void nextPermutation(vector<int>& nums) {
-    int s=nums.size();
-    int i;
-    int j;
-    for(i=s-1;i>0;i--){
-        if(nums[i]<=nums[i-1])
-            continue;
-        else
-            break;
+
+class Solution {
+public:
+    void nextPermutation(vector<int>& nums) {
+        int i=0,j=0;
+        int n=nums.size();
+        for(i=n-1;i>=1;i--){
+            if(nums[i]<=nums[i-1])
+                continue;
+            else break;
+        }
+        //i大于i-1
+        if(i==0){
+            reverse(nums.begin(),nums.end());
+            return;
+        }
+        for(j=n-1;j>i-1;j--){
+            if(nums[j]<=nums[i-1])
+                continue;
+            else break;
+        }
+        int temp=nums[j];
+        nums[j]=nums[i-1];
+        nums[i-1]=temp;
+        vector<int>::iterator it=nums.begin();
+        it=it+i;
+        reverse(it,nums.end());
+
     }
-    if(i<=0){
-        reverse(nums.begin(),nums.end());
-        return;
-    }
-    //i-1表示要换的数
-    for(j=s-1;j>=i;j--){
-        if(nums[j]<=nums[i-1])
-            continue;
-        else
-            break;
-    }
-    //j表示要和i-1换的数
-    int tmp=nums[j];
-    nums[j]=nums[i-1];
-    nums[i-1]=tmp;
-    vector<int>::iterator b=nums.end()-(s-i);
-    reverse(b,nums.end());
-    return ;
-}
+};
+
 int main(){
-
-    vector<int> vec={3,2,1};
-    nextPermutation(vec);
-    for(auto i:vec)
+    vector<int> nums={3,2,1};
+    Solution s;
+    s.nextPermutation(nums);
+    for(auto i:nums)
         cout<<i<<" ";
-
     return 0;
 }

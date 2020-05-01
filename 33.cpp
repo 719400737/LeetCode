@@ -1,23 +1,31 @@
-#include<iostream>
-#include<vector>
+#include<bits/stdc++.h>
 using namespace std;
 
-int search(vector<int>& nums, int target) {
-            int l=0,h=nums.size()-1;
-        while(l<h){
-            int mid=(h+l)/2;
-            if((nums[0]>nums[mid])^(nums[0]>target)^(target>nums[mid]))
-                l=mid+1;
+class Solution {
+public:
+    int search(vector<int>& nums, int target) {.sh
+        int left=0,right=nums.size()-1;
+        int mid=(left+right)/2;
+        while(left<=right && nums[mid]!=target){
+            if(nums[mid]>target)
+                right=mid-1;
             else
-                h=mid;
+                left=mid+1;
+            mid=(right+left)/2;
         }
-        return l==h&&nums[l]==target?l:-1;
-}
+        if(nums[mid]==target)
+            return mid;
+        else{
+            return 0;
+        }
+    }
+};
+
 int main(){
-
-    vector<int>vec={4,5,6,7,1,2};
-    int a=search( vec, 2);
-    cout<<a<<endl;
-
+    vector<int> vec={0,1,2,3,5,7};
+    int a=5;
+    Solution s;
+    int res=s.search(vec,a);
+    cout<<res<<endl;
     return 0;
 }
