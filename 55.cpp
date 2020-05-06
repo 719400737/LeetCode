@@ -1,33 +1,25 @@
-#include<iostream>
-#include<vector>
-#include<string>
-#include<algorithm>
-
+#include<bits/stdc++.h>
 using namespace std;
+//贪心算法 每次找到能跳的最远距离
+//当遍历到的i>当前能跳最远时，表示不能完成目的
 class Solution {
 public:
     bool canJump(vector<int>& nums) {
-        int len=0;
-        for(int i=0;i<nums.size();i++){
-            if(len<i)
+        int res=0,n=nums.size();//i表示目前可以到达的最远距离
+        for(int i=0;i<n;i++){
+            if(res>=n)
+                return true;
+            if(i>res)
                 return false;
-            len=max(len,i+nums[i]);
-
+            res=max(res,i+nums[i]);
         }
+
         return true;
-   
     }
 };
 
 int main(){
-    Solution s;
-    vector<int> vec={3,2,1,0,4};
-    if(s.canJump(vec))
-        cout<<"can"<<endl;
-    else
-    {
-        cout<<"can't"<<endl;
-    }
-    
+
+
     return 0;
 }
