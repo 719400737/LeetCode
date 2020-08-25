@@ -1,40 +1,42 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-class Solution {//使用归并排序来降低逆序对的复杂度，快手面试题
-    int merge(vector<int>& nums,vector<int>& temp,int start,int end){
-        if(start>=end-1)
-            return 0;
-        int mid=(start+end)/2;
-        int a=merge(nums,temp,start,mid);
-        int b=merge(nums,temp,mid,end);
-        int res=a+b;
-        int i=start,j=mid,k=i;
-        while(i<mid && j<end){
-            if(nums[i]<nums[j]){
-                res+=(end-j)*nums[i];
-                temp[k++]=nums[i++];
-            }
-            else
-                temp[k++]=nums[j++];
-        }
-        while(i<mid){
-            temp[k++]=nums[i++];
-            //res+=j-mid;
-        }
-        while(j<end)
-            temp[k++]=nums[j++];
-        for(int i=start;i<end;i++){
-            nums[i]=temp[i];
-        }
-        return res;
-    }
+class Solution {
 public:
-    int reversePairs(vector<int>& nums) {
-        int start=0,end=nums.size();
-        vector<int> temp(end,0);
-        int res=merge(nums,temp,start,end);
-        return res;
+    int helper(vector<int>& v1,int s1,int e1,vector<int>& v2,int s2,int e2,int k){
+        int l1=e1-s1+1;
+        int l2=e2-s2+1;
+        if(l1>l2)
+            return helper(v2,s2,e2,v1,s1,e1,k);
+        if(l1==0)
+            return v2[k+s2-1];
+        if(k==1){
+            return min(v1[s1],v2[s2]);
+        }
+        int i=s1+min(k/2,l1)-1;
+        int j=s2+min(k/2,l2)-1;
+        if(v1[i]<v2[j]){
+            return helper(v1,i+1,e1,v2,s2,e2,k-(i-s1+1));
+        }
+        else{
+           return  helper(v1,s1,e1,v2,j+1,e2,k-(j-s2+1));
+        }
+    }
+    double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
+        int m=nums1.size(),n=nums2.size(); 
+        //判断奇偶，找到k
+        int k;
+        if((m+n)%2){
+            k=(m+n+1)/2;
+            return helper(nums1,0,m-1,nums2,0,n-1,k);
+        }
+        else{
+            k=(m+n)/2;
+            double a=helper(nums1,0,m-1,nums2,0,n-1,k);
+            double b=helper(nums1,0,m-1,nums2,0,n-1,k+1);
+            return (a+b)/2;
+        }
+        
     }
 };
 int main(){
